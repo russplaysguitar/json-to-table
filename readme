@@ -19,6 +19,16 @@ var my_obj_array = [{"col1":"val1","col2":"val2"},{"col1":"val3","col2":"val4"}]
 
 // convert to table format
 var my_table = window.to_table(my_obj_array);
+/* 
+	my_table = 
+    {
+   		"cols":["col1","col2"],
+   		"rows":[
+   			["val1","val2"],
+   			["val3","val4"]
+   		]
+   	}
+*/
 
 // convert back into array of objects
 var my_obj_array_again = window.to_json(my_table);
@@ -31,6 +41,16 @@ my_obj_array = [{"col1":"val1","col2":"val2"},{"col1":"val3","col2":"val4"}]
 
 # convert to table format
 my_table = window.to_table(my_obj_array)
+/* 
+	my_table = 
+	{
+   		"cols":["col1","col2"],
+   		"rows":[
+   			["val1","val2"],
+   			["val3","val4"]
+   		]
+   	}
+*/
 
 # convert back into array of objects
 my_obj_array_again = window.to_json(my_table)
