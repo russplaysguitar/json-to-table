@@ -47,10 +47,14 @@
       expect(this.table.rows[0]).toBeDefined();
       return expect(this.table.rows[1]).toBeDefined();
     });
-    it("Should have correct data", function() {
-      return expect(false).toBeTruthy();
+    return it("Should have correct data", function() {
+      var expected;
+      expected = {
+        cols: ["one", "two", "three", "four"],
+        rows: [[1, "2", 3, "4"], [10, "20", 30, "40"]]
+      };
+      return expect(this.table).toEqual(expected);
     });
-    return true;
   });
 
 }).call(this);

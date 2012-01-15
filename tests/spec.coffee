@@ -32,7 +32,26 @@ describe "Table", ->
 		expect(@table.rows[1]).toBeDefined()
 
 	it "Should have correct data", ->
-		# TODO
-		expect(false).toBeTruthy()
-
-	true
+		expected =
+			cols: [
+				"one"
+				"two"
+				"three"
+				"four"
+			]
+			rows: [
+				[
+					1
+					"2"
+					3
+					"4"
+				],
+				[
+					10
+					"20"
+					30
+					"40"
+				]
+			]
+		
+		expect(@table).toEqual(expected)
