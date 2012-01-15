@@ -21,7 +21,7 @@ var my_obj_array = [{"col1":"val1","col2":"val2"},{"col1":"val3","col2":"val4"}]
 var my_table = window.to_table(my_obj_array);
 /* 
 	my_table = 
-    {
+	{
    		"cols":["col1","col2"],
    		"rows":[
    			["val1","val2"],
