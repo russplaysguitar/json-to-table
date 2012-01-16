@@ -2,9 +2,9 @@ window.to_table = (json) ->
   table = 
     cols:[]
     rows:[]
-  
+
   # wrap json in array if necessary
-  if(!json.length? or json.length < 1)
+  if(!json.length? or (json.length? and json.length < 1))
     json = [json]
     table.is_array = false
 
@@ -20,10 +20,10 @@ window.to_table = (json) ->
         # fix invalid column order
         val = eval("obj."+table.cols[i])
 
-      if(typeof(val) is 'string' or typeof(val) is 'number' or typeof(val) is 'boolean' or val.length?)
+      if(!val? or typeof(val) is 'string' or typeof(val) is 'number' or typeof(val) is 'boolean' or val.length?)
         # handle normal value
         row.push val
-      else if(typeof(val) is 'object' and val?)
+      else if(val? and typeof(val) is 'object')
         # recurse for nested objects
         row.push to_table(val)
       i++
@@ -39,11 +39,13 @@ window.to_json = (table) ->
     obj = {}
     for key, col of table.cols
       val = row[key]
-      if(typeof(val) is 'string' or typeof(val) is 'number' or typeof(val) is 'boolean' or val.length?)
+      if(!val? or typeof(val) is 'string' or typeof(val) is 'number' or typeof(val) is 'boolean' or val.length?)
         eval("obj."+col+"=val")
-      else if(typeof(val) is 'object' and val?)
+      else if(val? and typeof(val) is 'object')
         # recurse
         eval('obj.'+col+'=to_json(val)')
+      else if(!val?)
+        eval("obj."+col+"=null")
     json.push obj
 
   if(json.length is 1 and !table.is_array)

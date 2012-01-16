@@ -6,7 +6,7 @@
       cols: [],
       rows: []
     };
-    if (!(json.length != null) || json.length < 1) {
+    if (!(json.length != null) || ((json.length != null) && json.length < 1)) {
       json = [json];
       table.is_array = false;
     }
@@ -18,9 +18,9 @@
       for (key in obj) {
         val = obj[key];
         if (key !== table.cols[i]) val = eval("obj." + table.cols[i]);
-        if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean' || (val.length != null)) {
+        if (!(val != null) || typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean' || (val.length != null)) {
           row.push(val);
-        } else if (typeof val === 'object' && (val != null)) {
+        } else if ((val != null) && typeof val === 'object') {
           row.push(to_table(val));
         }
         i++;
@@ -41,10 +41,12 @@
       for (key in _ref2) {
         col = _ref2[key];
         val = row[key];
-        if (typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean' || (val.length != null)) {
+        if (!(val != null) || typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean' || (val.length != null)) {
           eval("obj." + col + "=val");
-        } else if (typeof val === 'object' && (val != null)) {
+        } else if ((val != null) && typeof val === 'object') {
           eval('obj.' + col + '=to_json(val)');
+        } else if (!(val != null)) {
+          eval("obj." + col + "=null");
         }
       }
       json.push(obj);
