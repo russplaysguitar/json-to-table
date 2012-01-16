@@ -1,7 +1,7 @@
 (function() {
 
   window.to_table = function(json) {
-    var key, obj, row, table, val, _i, _len;
+    var i, key, obj, row, table, val, _i, _len;
     table = {
       cols: [],
       rows: []
@@ -14,13 +14,16 @@
     for (_i = 0, _len = json.length; _i < _len; _i++) {
       obj = json[_i];
       row = [];
+      i = 0;
       for (key in obj) {
         val = obj[key];
+        if (key !== table.cols[i]) val = eval("obj." + table.cols[i]);
         if (typeof val === 'string' || !isNaN(val)) {
           row.push(val);
-        } else {
+        } else if (val != null) {
           row.push(to_table(val));
         }
+        i++;
       }
       table.rows.push(row);
     }
@@ -40,7 +43,7 @@
         val = row[key];
         if (typeof val === 'string' || !isNaN(val)) {
           eval("obj." + col + "=val");
-        } else {
+        } else if (val != null) {
           eval('obj.' + col + '=to_json(val)');
         }
       }

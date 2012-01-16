@@ -3,23 +3,32 @@ window.to_table = (json) ->
     cols:[]
     rows:[]
   
-  # populate column names
+  # wrap json in array if necessary
   if(!json.length?)
     json = [json]
     table.is_array = false
 
+  # populate column names
   table.cols = Object.keys json[0]
 
   # populate rows
   for obj in json
     row = []
+    i = 0
     for key, val of obj
+      if key isnt table.cols[i]
+        # fix invalid column order
+        val = eval("obj."+table.cols[i])
+        
       if(typeof(val) is 'string' or !isNaN(val))
+        # handle normal value
         row.push val
-      else
-        # recurse
+      else if val?
+        # recurse for nested objects
         row.push to_table(val)
+      i++
     table.rows.push row
+
   table
 
 
@@ -32,7 +41,7 @@ window.to_json = (table) ->
       val = row[key]
       if typeof(val) is 'string' or !isNaN(val)
         eval("obj."+col+"=val")
-      else
+      else if val?
         # recurse
         eval('obj.'+col+'=to_json(val)')
     json.push obj
