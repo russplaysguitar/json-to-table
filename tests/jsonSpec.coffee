@@ -9,3 +9,10 @@ describe "Json", ->
 
 	it "Should match the original object", ->
 		expect(@json).toEqual(@original)
+
+	it "Should not mix up columns", ->
+		mixed_up = [{one:1,two:"2",three:3,four:"4"},{four:"40",three:30,two:"20",one:10}]
+		table = window.to_table(mixed_up)
+		json = window.to_json(table)
+
+		expect(json).toEqual(@original)
