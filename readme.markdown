@@ -23,16 +23,16 @@ Initialize array of objects
 Convert to table format
 
     my_table = window.to_table(my_obj_array)
-    /* 
-    my_table = 
-    {
-      "cols":["col1","col2"],
-         "rows":[
-            ["val1","val2"],
-            ["val3","val4"]
-         ]
+    ### 
+      my_table is:
+      {
+        "cols":["col1","col2"],
+        "rows":[
+           ["val1","val2"],
+           ["val3","val4"]
+        ]
       }
-    */
+    ###
 
 Convert back into array of objects  
 `my_obj_array_again = window.to_json(my_table)`
@@ -47,14 +47,14 @@ Convert to table format
 
     var my_table = window.to_table(my_obj_array);
     /* 
-      my_table = 
+      my_table is:
       {
-            "cols":["col1","col2"],
-            "rows":[
-               ["val1","val2"],
-               ["val3","val4"]
-            ]
-         }
+        "cols":["col1","col2"],
+        "rows":[
+           ["val1","val2"],
+           ["val3","val4"]
+        ]
+      }
     */
 
 
