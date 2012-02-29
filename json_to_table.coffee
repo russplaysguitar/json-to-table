@@ -18,7 +18,7 @@ window.to_table = (json) ->
     for key, val of obj
       if key isnt table.cols[i]
         # fix invalid column order
-        val = eval("obj."+table.cols[i])
+        val = obj[table.cols[i]]
 
       if(!val? or typeof(val) is 'string' or typeof(val) is 'number' or typeof(val) is 'boolean' or val.length?)
         # handle normal value
@@ -40,12 +40,12 @@ window.to_json = (table) ->
     for key, col of table.cols
       val = row[key]
       if(!val? or typeof(val) is 'string' or typeof(val) is 'number' or typeof(val) is 'boolean' or val.length?)
-        eval("obj."+col+"=val")
+        obj[col] = val
       else if(val? and typeof(val) is 'object')
         # recurse
-        eval('obj.'+col+'=to_json(val)')
+        obj[col] = to_json(val)
       else if(!val?)
-        eval("obj."+col+"=null")
+        obj[col] = null
     json.push obj
 
   if(json.length is 1 and !table.is_array)

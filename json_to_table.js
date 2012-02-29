@@ -1,5 +1,4 @@
 (function() {
-
   window.to_table = function(json) {
     var i, key, obj, row, table, val, _i, _len;
     table = {
@@ -17,7 +16,9 @@
       i = 0;
       for (key in obj) {
         val = obj[key];
-        if (key !== table.cols[i]) val = eval("obj." + table.cols[i]);
+        if (key !== table.cols[i]) {
+          val = obj[table.cols[i]];
+        }
         if (!(val != null) || typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean' || (val.length != null)) {
           row.push(val);
         } else if ((val != null) && typeof val === 'object') {
@@ -29,7 +30,6 @@
     }
     return table;
   };
-
   window.to_json = function(table) {
     var col, json, key, obj, row, val, _i, _len, _ref, _ref2;
     json = [];
@@ -42,11 +42,11 @@
         col = _ref2[key];
         val = row[key];
         if (!(val != null) || typeof val === 'string' || typeof val === 'number' || typeof val === 'boolean' || (val.length != null)) {
-          eval("obj." + col + "=val");
+          obj[col] = val;
         } else if ((val != null) && typeof val === 'object') {
-          eval('obj.' + col + '=to_json(val)');
+          obj[col] = to_json(val);
         } else if (!(val != null)) {
-          eval("obj." + col + "=null");
+          obj[col] = null;
         }
       }
       json.push(obj);
@@ -57,5 +57,4 @@
       return json;
     }
   };
-
 }).call(this);
