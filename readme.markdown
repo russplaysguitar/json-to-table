@@ -1,6 +1,6 @@
 # json-to-table
 
-This project provides two functions that convert between JSON and table format:
+This project provides two functions that convert between JSON and "table" format:
 
 `window.to_table(json)` : converts from JSON to table format  
 `window.to_json(table)` : converts from table format to JSON
